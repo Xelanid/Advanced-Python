@@ -1,3 +1,15 @@
+import os
+
+import json
+
+
+class Document:
+    def __init__(self, text: str):
+        words = text.strip().split()
+        self.id = int(words[0])
+        self.words = map(str.strip, words[1:])
+
+
 class InvertedIndex:
     def query(self, words: list) -> list:
         pass
@@ -11,7 +23,11 @@ class InvertedIndex:
 
 
 def load_documents(filepath: str):
-    pass
+    docs = []
+    with open(filepath) as f:
+        for line in f.read().strip().split('\n'):
+            docs.append(Document(line))
+    return docs
 
 
 def build_inverted_index(documents):
